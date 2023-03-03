@@ -1,16 +1,33 @@
 // import { LockClosedIcon } from '@heroicons/react/solid';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from '@hooks/useAuth';
 import { LockClosedIcon } from '@heroicons/react/24/solid';
 
 export default function LoginPage() {
+  const [errorLogin, setErrorLogin] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('Something was wrong!');
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const auth = useAuth();
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
+    auth
+      .signIn(email, password)
+      .then(() => {
+        console.log('Login success');
+        router.push('/dashboard');
+        setErrorLogin(false);
+      })
+      .catch((error) => {
+        setErrorMsg(error.message);
+        console.log(error);
+        setErrorLogin(true);
+      });
   };
 
   return (
@@ -61,6 +78,15 @@ export default function LoginPage() {
                 />
               </div>
             </div>
+
+            {errorLogin && (
+              <div
+                className="p-3 mb-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
+                <span className="font-medium">{errorMsg}</span> {errorLogin}
+              </div>
+            )}
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
