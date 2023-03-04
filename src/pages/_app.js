@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
     <>
       <ProviderAuth>
         <MainLayaut>
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </MainLayaut>
       </ProviderAuth>
     </>
