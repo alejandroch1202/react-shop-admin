@@ -2,7 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['tailwindui.com', 'api.lorem.space'],
+    domains: [
+      'tailwindui.com',
+      'api.lorem.space',
+      'placeimg.com',
+      'cdn-irec.r-99.com',
+      'allgood.uz',
+      'i.ytimg.com',
+    ],
   },
 };
 

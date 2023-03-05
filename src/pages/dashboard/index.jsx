@@ -1,18 +1,20 @@
 import Pagination from '@components/Pagination';
+import { useState } from 'react';
 import useFetch from '@hooks/useFetch';
 import endpoints from '@services/api';
 import Image from 'next/image';
 
 const PRODUCT_LIMIT = 10;
-const PRODUCT_OFFSET = 10;
+// const PRODUCT_OFFSET = 0;
 
 export default function Dashboard() {
+  const [offsetProducts, setOffsetProducts] = useState(0);
+
   const products = useFetch(
-    endpoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET)
+    endpoints.products.getProducts(PRODUCT_LIMIT, offsetProducts),
+    offsetProducts
   );
-  console.log();
-  const totalItems = products.length;
-  console.log(totalItems);
+  const totalProducts = useFetch(endpoints.products.getProducts(0, 0)).length;
 
   return (
     <>
@@ -91,7 +93,7 @@ export default function Dashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a
-                          href="#"
+                          href="#/"
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Edit
@@ -99,7 +101,7 @@ export default function Dashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a
-                          href="#"
+                          href="#/"
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Delete
@@ -113,7 +115,14 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <Pagination totalItems={totalItems} />
+      {totalProducts > 0 && (
+        <Pagination
+          totalItems={totalProducts}
+          itemsPerPage={PRODUCT_LIMIT}
+          setOffset={setOffsetProducts}
+          neighbours={3}
+        ></Pagination>
+      )}
     </>
   );
 }
