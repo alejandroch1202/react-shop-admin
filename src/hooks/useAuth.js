@@ -1,6 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
 import Cookie from 'js-cookie';
-import axios from 'axios';
 import endpoints from '@services/api';
 
 const authContext = createContext();
@@ -17,26 +16,28 @@ export const useAuth = () => {
 function useProviderAuth() {
   const [user, setUser] = useState(null);
   const signIn = async (email, password) => {
-    const options = {
+    const response = await fetch(endpoints.auth.login, {
+      method: 'POST',
       headers: {
         accept: '*/*',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
       },
-    };
-    const { data: access_token } = await axios.post(
-      endpoints.auth.login,
-      {
-        email,
-        password,
-      },
-      options
-    );
-    if (access_token) {
-      const token = access_token.access_token;
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await response.json();
+
+    if (data.access_token) {
+      const token = data.access_token;
       Cookie.set('token', token, { expires: 5 });
-      axios.defaults.headers.Authorization = `Bearer ${token}`;
-      const { data: user } = await axios.get(endpoints.auth.profile);
-      setUser(user);
+      const res = await fetch(endpoints.auth.profile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userData = await res.json();
+      setUser(userData);
+    } else {
+      throw 'Login error';
     }
   };
 

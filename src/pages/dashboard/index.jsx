@@ -1,15 +1,18 @@
+import Pagination from '@components/Pagination';
 import useFetch from '@hooks/useFetch';
 import endpoints from '@services/api';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import Image from 'next/image';
 
-const PRODUCT_LIMIT = 15;
-const PRODUCT_OFFSET = 15;
+const PRODUCT_LIMIT = 10;
+const PRODUCT_OFFSET = 10;
 
 export default function Dashboard() {
   const products = useFetch(
     endpoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET)
   );
-  // console.log(products.data);
+  console.log();
+  const totalItems = products.length;
+  console.log(totalItems);
 
   return (
     <>
@@ -53,15 +56,17 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {products?.data?.map((product) => (
+                  {products?.map((product) => (
                     <tr key={`Product-item: ${product.id}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <img
+                            <Image
                               className="h-10 w-10 rounded-full"
                               src={product.images[0]}
                               alt={product.title}
+                              width={50}
+                              height={50}
                             />
                           </div>
                           <div className="ml-4">
@@ -108,6 +113,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      <Pagination totalItems={totalItems} />
     </>
   );
 }

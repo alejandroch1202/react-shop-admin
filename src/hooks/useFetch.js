@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const useFetch = (endpoint) => {
   const [data, setData] = useState([]);
 
   async function fetchData() {
-    const response = await axios.get(endpoint);
+    const response = await fetch(endpoint).then((res) => res.json());
     setData(response);
   }
 
