@@ -9,6 +9,8 @@ const nextConfig = {
       'cdn-irec.r-99.com',
       'allgood.uz',
       'i.ytimg.com',
+      'a.d-cd.net',
+      'EtTQzfXWYAUmC-K.jfif',
     ],
   },
 };
