@@ -106,6 +106,8 @@ const Products = () => {
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
                             <img
+                              width={50}
+                              height={50}
                               className="h-10 w-10 rounded-full"
                               src={product.images[0]}
                               alt=""

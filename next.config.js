@@ -11,6 +11,11 @@ const nextConfig = {
       'i.ytimg.com',
       'a.d-cd.net',
       'EtTQzfXWYAUmC-K.jfif',
+      'ui-avatars.com',
+      'loremflickr.com',
+      'fakestoreapi.com',
+      'www.apple.com',
+      'picsum.photos',
     ],
   },
 };

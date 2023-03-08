@@ -29,10 +29,12 @@ const Chart = ({ chartData }) => {
             display: true,
             text: 'Largest Cities in Massachusetts',
             fontSize: 20,
-          },
-          Legend: {
-            display: true,
-            position: 'right',
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top',
+              },
+            },
           },
         }}
       />

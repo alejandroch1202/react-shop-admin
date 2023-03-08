@@ -17,7 +17,7 @@ const Edit = () => {
       setProduct(data);
     }
     getProduct();
-  }, [router?.isReady]);
+  }, [router.query, router?.isReady]);
 
   return (
     <>

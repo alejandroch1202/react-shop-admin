@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 //  import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
@@ -14,7 +15,6 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ];
 
 function classNames(...classes) {
@@ -39,8 +39,10 @@ export default function Header() {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img
+                    <Image
                       className="h-8 w-8"
+                      width={50}
+                      height={50}
                       src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                       alt="Workflow"
                     />
@@ -81,6 +83,8 @@ export default function Header() {
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
                           <img
+                            width={50}
+                            height={50}
                             className="h-8 w-8 rounded-full"
                             src={userData.imageUrl}
                             alt=""
@@ -97,21 +101,12 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          ))}
+                          <button
+                            onClick={() => auth.logout()}
+                            className="block px-4 py-2 text-sm text-gray-700"
+                          >
+                            Logout
+                          </button>
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -154,6 +149,8 @@ export default function Header() {
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
                     <img
+                      width={50}
+                      height={50}
                       className="h-10 w-10 rounded-full"
                       src={userData.imageUrl}
                       alt=""

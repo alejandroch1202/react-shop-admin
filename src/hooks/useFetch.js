@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 const useFetch = (endpoint) => {
   const [data, setData] = useState([]);
 
-  async function fetchData() {
-    const response = await fetch(endpoint).then((res) => res.json());
-    setData(response);
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(endpoint).then((res) => res.json());
+      setData(response);
+    }
     try {
       fetchData();
     } catch (error) {

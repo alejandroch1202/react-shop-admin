@@ -15,6 +15,7 @@ export const useAuth = () => {
 
 function useProviderAuth() {
   const [user, setUser] = useState(null);
+
   const signIn = async (email, password) => {
     const response = await fetch(endpoints.auth.login, {
       method: 'POST',
@@ -41,8 +42,15 @@ function useProviderAuth() {
     }
   };
 
+  const logout = async () => {
+    Cookie.remove('token');
+    setUser(null);
+    window.location.href = '/login';
+  };
+
   return {
     user,
     signIn,
+    logout,
   };
 }
